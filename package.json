@@ -1,0 +1,92 @@
+﻿{
+  "name": "inline-suggest-redirect",
+  "displayName": "Inline Suggest Redirect",
+  "description": "Redirect VS Code inline completion requests to an OpenAI-compatible API endpoint",
+  "version": "0.0.1",
+  "publisher": "axwhizee",
+  "engines": {
+    "vscode": "^1.109.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "type": "module",
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Inline Suggest Redirect",
+      "properties": {
+        "inlineSuggestRedirect.endpoint": {
+          "type": "string",
+          "default": "https://api.openai.com/v1/chat/completions",
+          "description": "OpenAI-compatible API endpoint URL"
+        },
+        "inlineSuggestRedirect.model": {
+          "type": "string",
+          "default": "gpt-4o-mini",
+          "description": "Model ID to use for completion"
+        },
+        "inlineSuggestRedirect.maxTokens": {
+          "type": "number",
+          "default": 128,
+          "description": "Maximum number of tokens to generate"
+        },
+        "inlineSuggestRedirect.temperature": {
+          "type": "number",
+          "default": 0.0,
+          "description": "Sampling temperature (0 = deterministic)"
+        },
+        "inlineSuggestRedirect.debounceMs": {
+          "type": "number",
+          "default": 500,
+          "description": "Debounce delay in milliseconds before sending a request"
+        },
+        "inlineSuggestRedirect.contextLines": {
+          "type": "number",
+          "default": 10,
+          "description": "Number of context lines (before and after cursor) to include"
+        },
+        "inlineSuggestRedirect.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key (stored in settings; for sensitive use, prefer VS Code SecretStorage via command)"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "inlineSuggestRedirect.setApiKey",
+        "title": "Inline Suggest: Set API Key"
+      },
+      {
+        "command": "inlineSuggestRedirect.enable",
+        "title": "Inline Suggest: Enable"
+      },
+      {
+        "command": "inlineSuggestRedirect.disable",
+        "title": "Inline Suggest: Disable"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.109.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "typescript-eslint": "^8.54.0",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
