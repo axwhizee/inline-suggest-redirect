@@ -1,9 +1,10 @@
-﻿{
+{
   "name": "inline-suggest-redirect",
   "displayName": "Inline Suggest Redirect",
   "description": "Redirect VS Code inline completion requests to an OpenAI-compatible API endpoint",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "axwhizee",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.109.0"
   },
@@ -27,32 +28,42 @@
         "inlineSuggestRedirect.model": {
           "type": "string",
           "default": "gpt-4o-mini",
-          "description": "Model ID to use for completion"
+          "description": "Model ID"
         },
         "inlineSuggestRedirect.maxTokens": {
           "type": "number",
           "default": 128,
-          "description": "Maximum number of tokens to generate"
+          "description": "Max tokens to generate"
         },
         "inlineSuggestRedirect.temperature": {
           "type": "number",
           "default": 0.0,
-          "description": "Sampling temperature (0 = deterministic)"
+          "description": "Sampling temperature"
         },
         "inlineSuggestRedirect.debounceMs": {
           "type": "number",
           "default": 500,
-          "description": "Debounce delay in milliseconds before sending a request"
+          "description": "Debounce delay (ms)"
         },
         "inlineSuggestRedirect.contextLines": {
           "type": "number",
           "default": 10,
-          "description": "Number of context lines (before and after cursor) to include"
+          "description": "Context lines before/after cursor"
+        },
+        "inlineSuggestRedirect.timeoutMs": {
+          "type": "number",
+          "default": 30000,
+          "description": "Request timeout (ms)"
+        },
+        "inlineSuggestRedirect.extraBody": {
+          "type": "object",
+          "default": {},
+          "description": "Extra body params for API request"
         },
         "inlineSuggestRedirect.apiKey": {
           "type": "string",
           "default": "",
-          "description": "API key (stored in settings; for sensitive use, prefer VS Code SecretStorage via command)"
+          "description": "API key (prefer SecretStorage via command)"
         }
       }
     },
@@ -68,6 +79,10 @@
       {
         "command": "inlineSuggestRedirect.disable",
         "title": "Inline Suggest: Disable"
+      },
+      {
+        "command": "inlineSuggestRedirect.showOutput",
+        "title": "Inline Suggest: Show Output Log"
       }
     ]
   },
@@ -75,7 +90,6 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
     "test": "vscode-test"
   },
